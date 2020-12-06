@@ -11,6 +11,7 @@ import 'package:tablet/hand_power/hand_power_1.dart';
 import 'package:tablet/hand_power/hand_power_2.dart';
 import 'package:tablet/heavy_power/heavy_power_2.dart';
 import 'package:tablet/magnatic_particle/magnatic_particle_2.dart';
+import 'package:tablet/provider/services.dart';
 import 'package:tablet/sing_shacle/sing_shacle_2.dart';
 import 'package:tablet/tank_clean/tank_clean_2.dart';
 import 'package:tablet/tubing_drill/tubing_drill_2.dart';
@@ -75,6 +76,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  AuthenticationService _authenticationService = new AuthenticationService();
+
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
@@ -194,6 +197,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       child: FlatButton(
                         onPressed: () => {
+                          // _authenticationService.authenticate(
+                          //     "syazwan.shohaimi@gmail.com", "Simontempler0")
+
                           Navigator.of(context)
                               .pushReplacementNamed("/dashborad")
                         },
