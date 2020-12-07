@@ -32,10 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     // Login user up
-    await Provider.of<Auth>(context, listen: false).login(
-      _emailController.text,
-      _passwordController.text,
-    );
+    await Provider.of<Auth>(context, listen: false)
+        .login(_emailController.text, _passwordController.text);
 
     setState(() {
       _isLoading = false;
@@ -128,14 +126,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.black,
               ),
 
-              child: FlatButton(
-                onPressed: _submit,
-                child: Text(
-                  "LOG IN",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: data.size.width * 0.03),
-                ),
-                padding: EdgeInsets.only(left: 40, right: 40),
+              child: Column(
+                children: [
+                  if (!_isLoading)
+                    FlatButton(
+                      onPressed: _submit,
+                      child: Text(
+                        "LOG IN",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: data.size.width * 0.03),
+                      ),
+                      padding: EdgeInsets.only(left: 40, right: 40),
+                    )
+                  else
+                    Container(
+                      child: CircularProgressIndicator(),
+                    )
+                ],
               ),
               margin: EdgeInsets.only(
                   left: data.size.width * 0.2,
@@ -163,6 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -192,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     margin: EdgeInsets.all(6.0),
                     padding: EdgeInsets.all(18.0),
                     child: Image(
-                      image: AssetImage('assets/images/logo.png'),
+                      image: AssetImage('assets/images/sefera_logo_tablet.png'),
                       width: data.size.width * 0.22,
                       height: data.size.width * 0.22,
                     )),
