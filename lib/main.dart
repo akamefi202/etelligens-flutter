@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:tablet/dashboard.dart';
-import 'package:tablet/air_test/airtest_1.dart';
-import 'package:tablet/air_test/airtest_2.dart';
-import 'package:tablet/bottom_hole_inspection/bottom_hole_1.dart';
-import 'package:tablet/bottom_hole_inspection/bottom_hole_2.dart';
-import 'package:tablet/dye_penetrant/dye_1.dart';
-import 'package:tablet/dye_penetrant/dye_2.dart';
-import 'package:tablet/hand_power/hand_power_1.dart';
-import 'package:tablet/hand_power/hand_power_2.dart';
-import 'package:tablet/heavy_power/heavy_power_2.dart';
-import 'package:tablet/login_screen/login_screen.dart';
-import 'package:tablet/magnatic_particle/magnatic_particle_2.dart';
-import 'package:tablet/provider/auth.dart';
-import 'package:tablet/sing_shacle/sing_shacle_2.dart';
-import 'package:tablet/tank_clean/tank_clean_2.dart';
-import 'package:tablet/tubing_drill/tubing_drill_2.dart';
-import 'package:tablet/ultra_sonic/ultra_sonic_2.dart';
-import 'package:tablet/visual_inspection/visual_inspection_2.dart';
-import 'package:tablet/visual_thread/visual_thread_2.dart';
-import 'package:tablet/visual_thread_drill/visual_thread_drill_2.dart';
-import 'package:tablet/load_test/load_test_2.dart';
+import 'package:safera/dashboard.dart';
+import 'package:safera/air_test/airtest_1.dart';
+import 'package:safera/air_test/airtest_2.dart';
+import 'package:safera/bottom_hole_inspection/bottom_hole_1.dart';
+import 'package:safera/bottom_hole_inspection/bottom_hole_2.dart';
+import 'package:safera/dye_penetrant/dye_1.dart';
+import 'package:safera/dye_penetrant/dye_2.dart';
+import 'package:safera/hand_power/hand_power_1.dart';
+import 'package:safera/hand_power/hand_power_2.dart';
+import 'package:safera/heavy_power/heavy_power_2.dart';
+import 'package:safera/login_screen/login_screen.dart';
+import 'package:safera/magnatic_particle/magnatic_particle_2.dart';
+import 'package:safera/provider/auth.dart';
+import 'package:safera/sing_shacle/sing_shacle_2.dart';
+import 'package:safera/tank_clean/tank_clean_2.dart';
+import 'package:safera/tubing_drill/tubing_drill_2.dart';
+import 'package:safera/ultra_sonic/ultra_sonic_2.dart';
+import 'package:safera/visual_inspection/visual_inspection_2.dart';
+import 'package:safera/visual_thread/visual_thread_2.dart';
+import 'package:safera/visual_thread_drill/visual_thread_drill_2.dart';
+import 'package:safera/load_test/load_test_2.dart';
 
 var routes = <String, WidgetBuilder>{
   "/dashborad": (BuildContext context) => DashbordScreen(),

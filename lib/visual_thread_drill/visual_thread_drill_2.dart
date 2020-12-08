@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'dart:async';
-import 'package:tablet/widget/checkbox_title.dart';
+import 'package:safera/widget/checkbox_title.dart';
 
 class VisualThreadDrill2 extends StatefulWidget {
   VisualThreadDrill2({Key key}) : super(key: key);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'dart:async';
 
-import 'package:tablet/widget/checkbox_title.dart';
+import 'package:safera/widget/checkbox_title.dart';
 
 class SingShacle2 extends StatefulWidget {
   SingShacle2({Key key}) : super(key: key);
