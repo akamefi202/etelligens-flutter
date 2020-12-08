@@ -10,9 +10,19 @@ class Auth with ChangeNotifier {
     "Accept": "application/json",
     'Content-Type': 'application/json',
   };
-  // String _token;
-  // DateTime _expiryDate;
-  // String _userId;
+
+  String _token;
+  DateTime _expiryDate;
+  String _userId;
+  bool _isAuthenticated = false;
+
+  bool get isAuth {
+    return _isAuthenticated;
+  }
+
+  String get token {
+    return _token;
+  }
 
   Future<void> _authenticate(String email, String password) async {
     final url = 'http://ilokensystem.ddns.net:28080/careion/api/auth/login';
@@ -31,6 +41,11 @@ class Auth with ChangeNotifier {
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }
+      // userLogin  Successfully
+      _isAuthenticated = true;
+      _token = responseData['user']['accessToken'];
+      _userId = responseData['user']['userId'];
+      notifyListeners();
     } catch (error) {
       print("Error: " + error.toString());
       throw error;

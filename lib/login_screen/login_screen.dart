@@ -20,6 +20,24 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('An Error Occurred!'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Okay'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   Future<void> _submit() async {
     print("Submit Run !!!");
     // if (!_formKey.currentState.validate()) {
@@ -31,9 +49,13 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = true;
     });
 
-    // Login user up
-    await Provider.of<Auth>(context, listen: false)
-        .login(_emailController.text, _passwordController.text);
+    try {
+      // Login user
+      await Provider.of<Auth>(context, listen: false)
+          .login(_emailController.text, _passwordController.text);
+    } catch (error) {
+      _showErrorDialog("Login failed !!");
+    }
 
     setState(() {
       _isLoading = false;
