@@ -45,6 +45,7 @@ class Auth with ChangeNotifier {
       _isAuthenticated = true;
       _token = responseData['user']['accessToken'];
       _userId = responseData['user']['userId'];
+
       notifyListeners();
     } catch (error) {
       print("Error: " + error.toString());

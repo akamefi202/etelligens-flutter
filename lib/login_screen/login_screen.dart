@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('An Error Occurred!'),
+        title: Text('Login Failed !!'),
         content: Text(message),
         actions: <Widget>[
           FlatButton(
@@ -45,21 +45,24 @@ class _LoginScreenState extends State<LoginScreen> {
     //   return;
     // }
     // _formKey.currentState.save();
-    setState(() {
-      _isLoading = true;
-    });
 
-    try {
-      // Login user
-      await Provider.of<Auth>(context, listen: false)
-          .login(_emailController.text, _passwordController.text);
-    } catch (error) {
-      _showErrorDialog("Login failed !!");
+    if (_emailController.text != "" || _passwordController.text != "") {
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        // Login user
+        await Provider.of<Auth>(context, listen: false)
+            .login(_emailController.text, _passwordController.text);
+      } catch (error) {
+        _showErrorDialog("User is Not Authenticated !!");
+      }
+
+      setState(() {
+        _isLoading = false;
+      });
     }
-
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override

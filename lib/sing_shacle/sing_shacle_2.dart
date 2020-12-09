@@ -78,7 +78,7 @@ class _SingShacle2State extends State<SingShacle2> {
     return list;
   }
 
-  bool remember_password = true;
+  bool rememberPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +89,10 @@ class _SingShacle2State extends State<SingShacle2> {
       'Visual',
       onSelect: (isSelect) {
         setState(() {
-          remember_password = isSelect;
+          rememberPassword = isSelect;
         });
       },
-      value: remember_password,
+      value: rememberPassword,
       width: 16,
       height: 16,
       selectedBackgroundColor: Colors.blue,
@@ -106,10 +106,10 @@ class _SingShacle2State extends State<SingShacle2> {
       'MPI',
       onSelect: (isSelect) {
         setState(() {
-          remember_password = isSelect;
+          rememberPassword = isSelect;
         });
       },
-      value: remember_password,
+      value: rememberPassword,
       width: 16,
       height: 16,
       selectedBackgroundColor: Colors.blue,

@@ -59,20 +59,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider.value(
-            value: Auth(),
+      providers: [
+        ChangeNotifierProvider.value(
+          value: Auth(),
+        ),
+      ],
+      child: Consumer<Auth>(
+        builder: (ctx, authData, _) => MaterialApp(
+          theme: ThemeData(
+            primarySwatch: Colors.teal,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-        ],
-        child: Consumer<Auth>(
-          builder: (ctx, authData, _) => MaterialApp(
-            theme: ThemeData(
-              primarySwatch: Colors.teal,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-            ),
-            home: authData.isAuth ? DashbordScreen() : LoginScreen(),
-            routes: routes,
-          ),
-        ));
+          home: authData.isAuth ? DashbordScreen() : LoginScreen(),
+          routes: routes,
+        ),
+      ),
+    );
   }
 }

@@ -78,7 +78,7 @@ class _HandPower2State extends State<HandPower2> {
     return list;
   }
 
-  bool remember_password = true;
+  bool rememberPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +89,10 @@ class _HandPower2State extends State<HandPower2> {
       'Visual',
       onSelect: (isSelect) {
         setState(() {
-          remember_password = isSelect;
+          rememberPassword = isSelect;
         });
       },
-      value: remember_password,
+      value: rememberPassword,
       width: 16,
       height: 16,
       selectedBackgroundColor: Colors.blue,
@@ -106,10 +106,10 @@ class _HandPower2State extends State<HandPower2> {
       'MPI',
       onSelect: (isSelect) {
         setState(() {
-          remember_password = isSelect;
+          rememberPassword = isSelect;
         });
       },
-      value: remember_password,
+      value: rememberPassword,
       width: 16,
       height: 16,
       selectedBackgroundColor: Colors.blue,
@@ -123,10 +123,10 @@ class _HandPower2State extends State<HandPower2> {
       'DPI',
       onSelect: (isSelect) {
         setState(() {
-          remember_password = isSelect;
+          rememberPassword = isSelect;
         });
       },
-      value: remember_password,
+      value: rememberPassword,
       width: 16,
       height: 16,
       selectedBackgroundColor: Colors.blue,
@@ -140,10 +140,10 @@ class _HandPower2State extends State<HandPower2> {
       'Function',
       onSelect: (isSelect) {
         setState(() {
-          remember_password = isSelect;
+          rememberPassword = isSelect;
         });
       },
-      value: remember_password,
+      value: rememberPassword,
       width: 16,
       height: 16,
       selectedBackgroundColor: Colors.blue,
