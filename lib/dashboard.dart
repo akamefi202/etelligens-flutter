@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 
 class DashbordScreen extends StatefulWidget {
   DashbordScreen({Key key}) : super(key: key);
@@ -8,7 +8,11 @@ class DashbordScreen extends StatefulWidget {
 }
 
 class _DashbordScreenState extends State<DashbordScreen> {
-  // String formattedDate = DateFormat..format(DateTime.now());
+  DateTime yesnow = DateTime.now();
+  final String formattedDateTime =
+      DateFormat('dd MMMM yyyy').format(DateTime.now()).toString();
+  final String formattedDay = DateFormat('EEEEE').format(DateTime.now());
+
   int selectedTaskNumber = 0;
   var titleArray = ['In Task', 'In Progress', 'Closed Project', 'In Hold'];
   var countNumberArray = ['10', '31', '134', '15'];
@@ -229,14 +233,14 @@ class _DashbordScreenState extends State<DashbordScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '9 December 2020',
+                        formattedDateTime,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: data.size.width * 0.04,
                         ),
                       ),
                       Text(
-                        'Wednesday',
+                        formattedDay,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: data.size.width * 0.04,
