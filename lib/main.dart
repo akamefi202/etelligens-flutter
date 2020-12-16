@@ -14,6 +14,7 @@ import 'package:safera/heavy_power/heavy_power_2.dart';
 import 'package:safera/login_screen/login_screen.dart';
 import 'package:safera/magnatic_particle/magnatic_particle_2.dart';
 import 'package:safera/provider/auth.dart';
+import 'package:safera/screen/spalash_screen.dart';
 import 'package:safera/sing_shacle/sing_shacle_2.dart';
 import 'package:safera/tank_clean/tank_clean_2.dart';
 import 'package:safera/tubing_drill/tubing_drill_2.dart';
@@ -24,7 +25,7 @@ import 'package:safera/visual_thread_drill/visual_thread_drill_2.dart';
 import 'package:safera/load_test/load_test_2.dart';
 
 var routes = <String, WidgetBuilder>{
-  "/dashborad": (BuildContext context) => DashbordScreen(),
+  DashbordScreen.routeName: (BuildContext context) => DashbordScreen(),
   "/air_test/airtest_1": (BuildContext context) => AirTest1(),
   "/air_test/airtest_2": (BuildContext context) => AirTest2(),
   "/bottom_hole_inspection/bottom_hole_1": (BuildContext context) =>
@@ -70,7 +71,16 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: authData.isAuth ? DashbordScreen() : LoginScreen(),
+          home: authData.isAuth
+              ? DashbordScreen()
+              : FutureBuilder(
+                  future: authData.tryAutoLogin(),
+                  builder: (ctx, authResultSnapshot) =>
+                      authResultSnapshot.connectionState ==
+                              ConnectionState.waiting
+                          ? SplashScreen()
+                          : LoginScreen(),
+                ),
           routes: routes,
         ),
       ),

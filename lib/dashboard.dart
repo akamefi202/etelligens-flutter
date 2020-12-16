@@ -3,12 +3,13 @@ import 'package:intl/intl.dart';
 
 class DashbordScreen extends StatefulWidget {
   DashbordScreen({Key key}) : super(key: key);
+  static const routeName = '/dashboard';
+
   @override
   _DashbordScreenState createState() => _DashbordScreenState();
 }
 
 class _DashbordScreenState extends State<DashbordScreen> {
-  DateTime yesnow = DateTime.now();
   final String formattedDateTime =
       DateFormat('dd MMMM yyyy').format(DateTime.now()).toString();
   final String formattedDay = DateFormat('EEEEE').format(DateTime.now());
