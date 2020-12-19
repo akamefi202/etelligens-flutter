@@ -68,6 +68,8 @@ class Auth with ChangeNotifier {
           "role": role,
         },
       );
+      prefs.setString(
+          'token', json.encode(responseData['user']['accessToken']));
       prefs.setString('userData', userData);
     } catch (error) {
       print("Error: " + error.toString());
