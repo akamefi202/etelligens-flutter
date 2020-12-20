@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   cursorColor: Colors.grey,
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
-                  validator: (String value) {
+                  validator: (value) {
                     if (value.isEmpty || !value.contains('@')) {
                       return 'Invalid email!';
                     }
