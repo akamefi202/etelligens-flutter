@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:safera/provider/dashboard.dart';
 
 import 'package:safera/screen/dashboard_screen.dart';
 import 'package:safera/air_test/airtest_1.dart';
@@ -63,6 +64,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(
           value: Auth(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Certificates(),
         ),
       ],
       child: Consumer<Auth>(
