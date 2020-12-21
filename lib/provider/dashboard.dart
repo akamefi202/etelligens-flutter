@@ -7,51 +7,51 @@ import '../models/certificate.dart';
 
 class Certificates with ChangeNotifier {
   List<Certificate> _items = [
-    Certificate(
-        certId: "CR0001",
-        inspectionType: "laskla",
-        testDate: "2020-12-21T10:23:56.055+0000",
-        client: "Farukh",
-        po: "2193209",
-        refNo: "786",
-        serialNo: "1234567",
-        locationOfTest: "Turkish"),
-    Certificate(
-        certId: "CR0002",
-        inspectionType: "nwefoe",
-        testDate: "2020-12-04T10:23:56.055+0000",
-        client: "Farukh Saifi",
-        po: "2193209",
-        refNo: "786",
-        serialNo: "1234567",
-        locationOfTest: "Manali"),
-    Certificate(
-        certId: "CR0003",
-        inspectionType: " Boomm",
-        testDate: "2020-12-04T10:23:56.055+0000",
-        client: "Sammeer",
-        po: "2193209",
-        refNo: "786",
-        serialNo: "1234567",
-        locationOfTest: "Safari"),
-    Certificate(
-        certId: "CR0004",
-        inspectionType: "test122",
-        testDate: "2020-12-04T10:23:56.055+0000",
-        client: "Sammeer Saifi",
-        po: "2193209",
-        refNo: "786",
-        serialNo: "1234567",
-        locationOfTest: "Safari"),
-    Certificate(
-        certId: "CR0005",
-        inspectionType: "Farukh Sexy ",
-        testDate: "2020-12-04T10:23:56.055+0000",
-        client: "Sammeer kadva",
-        po: "2193209",
-        refNo: "786",
-        serialNo: "1234567",
-        locationOfTest: "Safari"),
+    // Certificate(
+    //     certId: "CR0001",
+    //     inspectionType: "laskla",
+    //     testDate: "2020-12-21T10:23:56.055+0000",
+    //     client: "Farukh",
+    //     po: "2193209",
+    //     refNo: "786",
+    //     serialNo: "1234567",
+    //     locationOfTest: "Turkish"),
+    // Certificate(
+    //     certId: "CR0002",
+    //     inspectionType: "nwefoe",
+    //     testDate: "2020-12-04T10:23:56.055+0000",
+    //     client: "Farukh Saifi",
+    //     po: "2193209",
+    //     refNo: "786",
+    //     serialNo: "1234567",
+    //     locationOfTest: "Manali"),
+    // Certificate(
+    //     certId: "CR0003",
+    //     inspectionType: " Boomm",
+    //     testDate: "2020-12-04T10:23:56.055+0000",
+    //     client: "Sammeer",
+    //     po: "2193209",
+    //     refNo: "786",
+    //     serialNo: "1234567",
+    //     locationOfTest: "Safari"),
+    // Certificate(
+    //     certId: "CR0004",
+    //     inspectionType: "test122",
+    //     testDate: "2020-12-04T10:23:56.055+0000",
+    //     client: "Sammeer Saifi",
+    //     po: "2193209",
+    //     refNo: "786",
+    //     serialNo: "1234567",
+    //     locationOfTest: "Safari"),
+    // Certificate(
+    //     certId: "CR0005",
+    //     inspectionType: "Farukh Sexy ",
+    //     testDate: "2020-12-04T10:23:56.055+0000",
+    //     client: "Sammeer kadva",
+    //     po: "2193209",
+    //     refNo: "786",
+    //     serialNo: "1234567",
+    //     locationOfTest: "Safari"),
   ];
   // var _showFavoritesOnly = false;
 
@@ -80,14 +80,15 @@ class Certificates with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> fetchAndSetProducts() async {
+  Future<void> fetchAndSetProducts(token) async {
+    // print("token fetchAndSetProducts => $email");
     const url =
         'http://ilokensystem.ddns.net:28080/careion/api/user/getnewtasklist';
+
     final headers = {
       "Accept": "application/json",
       'Content-Type': 'application/json',
-      'Authorization':
-          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzeWF6d2FuLnNob2hhaW1pQGdtYWlsLmNvbSIsImV4cCI6MTYwODUxNzU2MywiaWF0IjoxNjA4NDk5NTYzfQ.wfsF4U0CaXsrsszeyBt8aBicS6JWBio4imI--BrFMlM5Dy0osmqvdtsFpgtn4MTPNo3Kp_T6MUG6noEiEDChpA'
+      'Authorization': 'Bearer $token'
     };
     try {
       final response = await http.post(url,
@@ -95,7 +96,7 @@ class Certificates with ChangeNotifier {
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       final finalExtData = extractedData['newTaskList'];
 
-      if (extractedData == null) {
+      if (finalExtData == null) {
         print("null something");
         return;
       }
@@ -116,7 +117,7 @@ class Certificates with ChangeNotifier {
       _items = loadedCertificates;
       notifyListeners();
     } catch (error) {
-      print("error =>  $error ");
+      print("error Ctch =>  $error ");
     }
   }
 

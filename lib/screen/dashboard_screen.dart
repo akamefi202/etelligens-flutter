@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:safera/provider/auth.dart';
 import 'package:safera/provider/dashboard.dart';
 import 'package:safera/widget/certificateCard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashbordScreen extends StatefulWidget {
   DashbordScreen({Key key}) : super(key: key);
@@ -71,7 +73,12 @@ class _DashbordScreenState extends State<DashbordScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Certificates>(context).fetchAndSetProducts().then((_) {
+
+      final String token = Provider.of<Auth>(context, listen: false).token;
+      final String email = Provider.of<Auth>(context, listen: false).email;
+
+      print('emial for dAH => $email, $token');
+      Provider.of<Certificates>(context).fetchAndSetProducts(token).then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -95,6 +102,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
             setState(() {
               selectedTaskNumber = i;
             });
+            Provider.of<Auth>(context, listen: false).logout();
           },
           child: Container(
             decoration: BoxDecoration(
@@ -258,9 +266,10 @@ class _DashbordScreenState extends State<DashbordScreen> {
             Container(
               // user info and date
               margin: EdgeInsets.only(
-                  left: data.size.width * 0.08,
-                  top: data.size.height * 0.05,
-                  right: data.size.width * 0.08),
+                left: data.size.width * 0.08,
+                top: data.size.height * 0.05,
+                right: data.size.width * 0.08,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -358,7 +367,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
                   topRight: Radius.circular(25.0),
                 ),
               ),
-              margin: EdgeInsets.only(top: 5),
+              margin: const EdgeInsets.only(top: 5),
               padding:
                   EdgeInsets.only(left: 40, right: 40, top: 22, bottom: 15),
               width: data.size.width,

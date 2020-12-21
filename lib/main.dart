@@ -15,6 +15,7 @@ import 'package:safera/heavy_power/heavy_power_2.dart';
 import 'package:safera/login_screen/login_screen.dart';
 import 'package:safera/magnatic_particle/magnatic_particle_2.dart';
 import 'package:safera/provider/auth.dart';
+import 'package:safera/screen/inspector_details_screen.dart';
 import 'package:safera/screen/spalash_screen.dart';
 import 'package:safera/sing_shacle/sing_shacle_2.dart';
 import 'package:safera/tank_clean/tank_clean_2.dart';
@@ -50,6 +51,8 @@ var routes = <String, WidgetBuilder>{
   "/visual_thread_drill/visual_thread_drill_2": (BuildContext context) =>
       VisualThreadDrill2(),
   "/load_test/load_test_2": (BuildContext context) => LoadTest2(),
+  InspectionDetailScreen.routeName: (BuildContext context) =>
+      InspectionDetailScreen()
   // '/product/deduct': (BuildContext context) => MaterialScanner(
   //       addProduct: false,
   //     ),

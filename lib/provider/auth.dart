@@ -17,7 +17,7 @@ class Auth with ChangeNotifier {
   String _token;
   String userName;
   String userId;
-  String email;
+  String _email;
   String role;
 
   bool get isAuth {
@@ -27,6 +27,13 @@ class Auth with ChangeNotifier {
   String get token {
     if (_token != null) {
       return _token;
+    }
+    return null;
+  }
+
+  String get email {
+    if (_email != null) {
+      return _email;
     }
     return null;
   }
@@ -46,6 +53,7 @@ class Auth with ChangeNotifier {
       print("Response Data :" + responseData.toString());
 
       if (responseData['error'] == 401) {
+        logout();
         throw HttpException(responseData['error']['message']);
       }
       // userLogin  Successfully

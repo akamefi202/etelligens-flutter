@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:safera/screen/inspector_details_screen.dart';
 
 class CertificateCard extends StatelessWidget {
   final String certId;
@@ -60,56 +61,12 @@ class CertificateCard extends StatelessWidget {
     final data = MediaQuery.of(context);
 
     return Container(
-      child: InkWell(
+      child: GestureDetector(
         onTap: () {
-          switch (1) {
-            case 9:
-              Navigator.of(context).pushNamed("/air_test/airtest_2");
-              break;
-            case 12:
-              Navigator.of(context)
-                  .pushNamed("/bottom_hole_inspection/bottom_hole_2");
-              break;
-            case 3:
-              Navigator.of(context).pushNamed("/dye_penetrant/dye_2");
-              break;
-            case 5:
-              Navigator.of(context).pushNamed("/hand_power/hand_power_2");
-              break;
-            case 13:
-              Navigator.of(context).pushNamed("/heavy_power/heavy_power_2");
-              break;
-            case 1:
-              Navigator.of(context)
-                  .pushNamed("/magnatic_particle/magnatic_particle_2");
-              break;
-            case 2:
-              Navigator.of(context).pushNamed("/sing_shacle/sing_shacle_2");
-              break;
-            case 8:
-              Navigator.of(context).pushNamed("/tank_clean/tank_clean_2");
-              break;
-            case 11:
-              Navigator.of(context).pushNamed("/tubing_drill/tubing_drill_2");
-              break;
-            case 7:
-              Navigator.of(context).pushNamed("/ultra_sonic/ultra_sonic_2");
-              break;
-            case 4:
-              Navigator.of(context)
-                  .pushNamed("/visual_inspection/visual_inspection_2");
-              break;
-            case 6:
-              Navigator.of(context).pushNamed("/visual_thread/visual_thread_2");
-              break;
-            case 10:
-              Navigator.of(context)
-                  .pushNamed("/visual_thread_drill/visual_thread_drill_2");
-              break;
-            case 0:
-              Navigator.of(context).pushNamed("/load_test/load_test_2");
-              break;
-          }
+          Navigator.of(context).pushReplacementNamed(
+            InspectionDetailScreen.routeName,
+            arguments: certId,
+          );
         },
         child: Container(
           decoration: BoxDecoration(
