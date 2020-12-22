@@ -77,8 +77,10 @@ class _DashbordScreenState extends State<DashbordScreen> {
       final String token = Provider.of<Auth>(context, listen: false).token;
       final String email = Provider.of<Auth>(context, listen: false).email;
 
-      print('emial for dAH => $email, $token');
-      Provider.of<Certificates>(context).fetchAndSetProducts(token).then((_) {
+      // print('emial for dAH => $email, $token');
+      Provider.of<Certificates>(context)
+          .fetchAndSetProducts(email, token)
+          .then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -383,29 +385,33 @@ class _DashbordScreenState extends State<DashbordScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                 ),
-                child: GridView.builder(
-                  padding: const EdgeInsets.all(30.0),
-                  itemCount: inspectionData.length,
-                  itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-                    // builder: (c) => products[i],
-                    value: inspectionData[i],
-                    child: CertificateCard(
-                      inspectionData[i].certId,
-                      inspectionData[i].inspectionType,
-                      inspectionData[i].testDate,
-                      inspectionData[i].client,
-                      inspectionData[i].po,
-                      inspectionData[i].refNo,
-                      inspectionData[i].serialNo,
-                      inspectionData[i].locationOfTest,
-                    ),
-                  ),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 30,
-                    mainAxisSpacing: 30,
-                  ),
-                ),
+                child: _isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : GridView.builder(
+                        padding: const EdgeInsets.all(30.0),
+                        itemCount: inspectionData.length,
+                        itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                          // builder: (c) => products[i],
+                          value: inspectionData[i],
+                          child: CertificateCard(
+                            inspectionData[i].certId,
+                            inspectionData[i].inspectionType,
+                            inspectionData[i].testDate,
+                            inspectionData[i].client,
+                            inspectionData[i].po,
+                            inspectionData[i].refNo,
+                            inspectionData[i].serialNo,
+                            inspectionData[i].locationOfTest,
+                          ),
+                        ),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 30,
+                          mainAxisSpacing: 30,
+                        ),
+                      ),
               ),
             ),
           ],

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // import '../models/http_exception.dart';
-import '../models/certificate.dart';
+import 'certificate.dart';
 
 class Certificates with ChangeNotifier {
   List<Certificate> _items = [
@@ -80,8 +80,8 @@ class Certificates with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> fetchAndSetProducts(token) async {
-    // print("token fetchAndSetProducts => $email");
+  Future<void> fetchAndSetProducts(String email, String token) async {
+    print("token fetchAndSetProducts => $email & $token");
     const url =
         'http://ilokensystem.ddns.net:28080/careion/api/user/getnewtasklist';
 
@@ -92,15 +92,16 @@ class Certificates with ChangeNotifier {
     };
     try {
       final response = await http.post(url,
-          body: json.encode({"email": "jessica@gmail.com"}), headers: headers);
+          body: json.encode({'email': email}), headers: headers);
+      print(response.statusCode);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       final finalExtData = extractedData['newTaskList'];
 
-      if (finalExtData == null) {
+      if (finalExtData == null || response.statusCode != 200) {
         print("null something");
         return;
       }
-      print("FINALDATATA=> $finalExtData");
+      // print("FINALDATATA=> $finalExtData");
       final List<Certificate> loadedCertificates = [];
       finalExtData.forEach((cretData) => {
             loadedCertificates.add(Certificate(

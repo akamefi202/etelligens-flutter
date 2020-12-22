@@ -39,9 +39,9 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> _authenticate(String email, String password) async {
-    final urllogin = '$url/auth/login';
+    final urlLogin = '$url/auth/login';
     try {
-      final response = await http.post(urllogin,
+      final response = await http.post(urlLogin,
           body: json.encode(
             {
               'userEmail': email,
@@ -52,33 +52,31 @@ class Auth with ChangeNotifier {
       final responseData = json.decode(response.body);
       print("Response Data :" + responseData.toString());
 
-      if (responseData['error'] == 401) {
+      if (responseData['status']['code'] != 0) {
         logout();
-        throw HttpException(responseData['error']['message']);
+        throw HttpException(responseData['status']['message']);
       }
       // userLogin  Successfully
       userDetails = responseData['user'];
       _token = responseData['user']['accessToken'];
       userName = responseData['user']['userName'];
       userId = responseData['user']['userId'];
-      email = responseData['user']['email'];
+      _email = responseData['user']['email'];
       role = responseData['user']['role'];
 
-      notifyListeners();
       // Save userDetais in LocalStorage
       final prefs = await SharedPreferences.getInstance();
-      var userData = json.encode(
-        {
-          'token': _token,
-          'userId': userId,
-          "userName": userName,
-          "email": email,
-          "role": role,
-        },
-      );
-      prefs.setString(
-          'token', json.encode(responseData['user']['accessToken']));
+      var userData = json.encode({
+        'token': _token,
+        'userId': userId,
+        "userName": userName,
+        "email": _email,
+        "role": role,
+      });
+      prefs.setString('token', _token);
+      prefs.setString('email', _email);
       prefs.setString('userData', userData);
+      notifyListeners();
     } catch (error) {
       print("Error: " + error.toString());
       throw error;
@@ -90,11 +88,12 @@ class Auth with ChangeNotifier {
     if (!prefs.containsKey('userData')) {
       return false;
     }
-    final extractedUserData =
-        json.decode(prefs.getString('userData')) as Map<String, Object>;
+    // final extractedUserData =
+    //     await json.decode(prefs.getString('userData')) as Map<String, Object>;
 
-    _token = extractedUserData['token'];
-    userId = extractedUserData['userId'];
+    _token = prefs.getString('token');
+    _email = prefs.getString('email');
+    userId = prefs.getString('userId');
 
     notifyListeners();
     return true;
@@ -102,11 +101,12 @@ class Auth with ChangeNotifier {
 
   Future<void> login(String email, String password) async {
     print("login: => $email, $password");
-    return _authenticate(email, password);
+    return _authenticate(email.trim(), password.trim());
   }
 
   Future<void> logout() async {
     _token = null;
+    _email = null;
     userId = null;
 
     notifyListeners();
