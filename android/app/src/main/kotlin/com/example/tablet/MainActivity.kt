@@ -1,4 +1,4 @@
-package com.example.tablet
+package com.example.safera
 
 import io.flutter.embedding.android.FlutterActivity
 

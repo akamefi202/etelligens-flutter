@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:safera/provider/auth.dart';
+import 'package:safera/provider/dashboard.dart';
+import 'package:safera/widget/certificateCard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashbordScreen extends StatefulWidget {
   DashbordScreen({Key key}) : super(key: key);
+  static const routeName = '/dashboard';
+
   @override
   _DashbordScreenState createState() => _DashbordScreenState();
 }
 
 class _DashbordScreenState extends State<DashbordScreen> {
-  DateTime yesnow = DateTime.now();
   final String formattedDateTime =
       DateFormat('dd MMMM yyyy').format(DateTime.now()).toString();
   final String formattedDay = DateFormat('EEEEE').format(DateTime.now());
@@ -49,9 +55,46 @@ class _DashbordScreenState extends State<DashbordScreen> {
     "Heavy Weight Drill Pipe",
   ];
 
+  var _isInit = true;
+  var _isLoading = false;
+
+  @override
+  void initState() {
+    // Provider.of<Products>(context).fetchAndSetProducts(); // WON'T WORK!
+    // Future.delayed(Duration.zero).then((_) {
+    //   Provider.of<Products>(context).fetchAndSetProducts();
+    // });
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      final String token = Provider.of<Auth>(context, listen: false).token;
+      final String email = Provider.of<Auth>(context, listen: false).email;
+
+      // print('emial for dAH => $email, $token');
+      Provider.of<Certificates>(context)
+          .fetchAndSetProducts(email, token)
+          .then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
+    final certificatesData = Provider.of<Certificates>(context);
+    final inspectionData = certificatesData.items;
 
     List<Widget> createTaskButtons() {
       List<Widget> taskButtons = [];
@@ -61,6 +104,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
             setState(() {
               selectedTaskNumber = i;
             });
+            Provider.of<Auth>(context, listen: false).logout();
           },
           child: Container(
             decoration: BoxDecoration(
@@ -100,115 +144,116 @@ class _DashbordScreenState extends State<DashbordScreen> {
       return taskButtons;
     }
 
-    List<Widget> createTypeJob() {
-      List<Widget> menuButtons = [];
-      for (var i = 0; i < 14; i++) {
-        Widget menuButton = InkWell(
-          onTap: () {
-            switch (i) {
-              case 9:
-                Navigator.of(context).pushNamed("/air_test/airtest_2");
-                break;
-              case 12:
-                Navigator.of(context)
-                    .pushNamed("/bottom_hole_inspection/bottom_hole_2");
-                break;
-              case 3:
-                Navigator.of(context).pushNamed("/dye_penetrant/dye_2");
-                break;
-              case 5:
-                Navigator.of(context).pushNamed("/hand_power/hand_power_2");
-                break;
-              case 13:
-                Navigator.of(context).pushNamed("/heavy_power/heavy_power_2");
-                break;
-              case 1:
-                Navigator.of(context)
-                    .pushNamed("/magnatic_particle/magnatic_particle_2");
-                break;
-              case 2:
-                Navigator.of(context).pushNamed("/sing_shacle/sing_shacle_2");
-                break;
-              case 8:
-                Navigator.of(context).pushNamed("/tank_clean/tank_clean_2");
-                break;
-              case 11:
-                Navigator.of(context).pushNamed("/tubing_drill/tubing_drill_2");
-                break;
-              case 7:
-                Navigator.of(context).pushNamed("/ultra_sonic/ultra_sonic_2");
-                break;
-              case 4:
-                Navigator.of(context)
-                    .pushNamed("/visual_inspection/visual_inspection_2");
-                break;
-              case 6:
-                Navigator.of(context)
-                    .pushNamed("/visual_thread/visual_thread_2");
-                break;
-              case 10:
-                Navigator.of(context)
-                    .pushNamed("/visual_thread_drill/visual_thread_drill_2");
-                break;
-              case 0:
-                Navigator.of(context).pushNamed("/load_test/load_test_2");
-                break;
-            }
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25.0),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[500],
-                    // offset: Offset(1.0, 1.0),
-                    blurRadius: 3.0,
-                    spreadRadius: 1.0),
-              ],
-            ),
-            width: data.size.width * 0.26,
-            height: data.size.width * 0.28 * 1.2,
-            padding: EdgeInsets.all(data.size.width * 0.02),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Cert No: CR001',
-                  style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: data.size.width * 0.025,
-                      fontWeight: FontWeight.bold),
-                ),
-                Image.asset(
-                  menuImagesArray[i],
-                  width: data.size.width * 0.13,
-                  height: data.size.width * 0.13,
-                ),
-                Text(
-                  menuNameArray[i],
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: data.size.width * 0.02,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  'Test Date: 12 April 2020',
-                  style: TextStyle(
-                      color: Colors.grey[400],
-                      fontSize: data.size.width * 0.02,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-        );
-        menuButtons.add(menuButton);
-      }
+    // List<Widget> createTypeJob() {
+    //   List<Widget> menuButtons = [];
+    //   for (var i = 0; i < 14; i++) {
+    //     print('iii=> $i');
+    //     Widget menuButton = InkWell(
+    //       onTap: () {
+    //         switch (i) {
+    //           case 9:
+    //             Navigator.of(context).pushNamed("/air_test/airtest_2");
+    //             break;
+    //           case 12:
+    //             Navigator.of(context)
+    //                 .pushNamed("/bottom_hole_inspection/bottom_hole_2");
+    //             break;
+    //           case 3:
+    //             Navigator.of(context).pushNamed("/dye_penetrant/dye_2");
+    //             break;
+    //           case 5:
+    //             Navigator.of(context).pushNamed("/hand_power/hand_power_2");
+    //             break;
+    //           case 13:
+    //             Navigator.of(context).pushNamed("/heavy_power/heavy_power_2");
+    //             break;
+    //           case 1:
+    //             Navigator.of(context)
+    //                 .pushNamed("/magnatic_particle/magnatic_particle_2");
+    //             break;
+    //           case 2:
+    //             Navigator.of(context).pushNamed("/sing_shacle/sing_shacle_2");
+    //             break;
+    //           case 8:
+    //             Navigator.of(context).pushNamed("/tank_clean/tank_clean_2");
+    //             break;
+    //           case 11:
+    //             Navigator.of(context).pushNamed("/tubing_drill/tubing_drill_2");
+    //             break;
+    //           case 7:
+    //             Navigator.of(context).pushNamed("/ultra_sonic/ultra_sonic_2");
+    //             break;
+    //           case 4:
+    //             Navigator.of(context)
+    //                 .pushNamed("/visual_inspection/visual_inspection_2");
+    //             break;
+    //           case 6:
+    //             Navigator.of(context)
+    //                 .pushNamed("/visual_thread/visual_thread_2");
+    //             break;
+    //           case 10:
+    //             Navigator.of(context)
+    //                 .pushNamed("/visual_thread_drill/visual_thread_drill_2");
+    //             break;
+    //           case 0:
+    //             Navigator.of(context).pushNamed("/load_test/load_test_2");
+    //             break;
+    //         }
+    //       },
+    //       child: Container(
+    //         decoration: BoxDecoration(
+    //           color: Colors.white,
+    //           borderRadius: BorderRadius.circular(25.0),
+    //           boxShadow: [
+    //             BoxShadow(
+    //                 color: Colors.grey[500],
+    //                 // offset: Offset(1.0, 1.0),
+    //                 blurRadius: 3.0,
+    //                 spreadRadius: 1.0),
+    //           ],
+    //         ),
+    //         width: data.size.width * 0.26,
+    //         height: data.size.width * 0.28 * 1.2,
+    //         padding: EdgeInsets.all(data.size.width * 0.02),
+    //         child: Column(
+    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //           children: [
+    //             Text(
+    //               'Cert No: CR001',
+    //               style: TextStyle(
+    //                   color: Colors.black87,
+    //                   fontSize: data.size.width * 0.025,
+    //                   fontWeight: FontWeight.bold),
+    //             ),
+    //             Image.asset(
+    //               menuImagesArray[i],
+    //               width: data.size.width * 0.13,
+    //               height: data.size.width * 0.13,
+    //             ),
+    //             Text(
+    //               menuNameArray[i],
+    //               textAlign: TextAlign.center,
+    //               style: TextStyle(
+    //                   color: Colors.black87,
+    //                   fontSize: data.size.width * 0.02,
+    //                   fontWeight: FontWeight.bold),
+    //             ),
+    //             Text(
+    //               'Test Date: 12 April 2020',
+    //               style: TextStyle(
+    //                   color: Colors.grey[400],
+    //                   fontSize: data.size.width * 0.02,
+    //                   fontWeight: FontWeight.bold),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     );
+    //     menuButtons.add(menuButton);
+    //   }
 
-      return menuButtons;
-    }
+    //   return menuButtons;
+    // }
 
     return Scaffold(
       body: Container(
@@ -223,9 +268,10 @@ class _DashbordScreenState extends State<DashbordScreen> {
             Container(
               // user info and date
               margin: EdgeInsets.only(
-                  left: data.size.width * 0.08,
-                  top: data.size.height * 0.05,
-                  right: data.size.width * 0.08),
+                left: data.size.width * 0.08,
+                top: data.size.height * 0.05,
+                right: data.size.width * 0.08,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -323,7 +369,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
                   topRight: Radius.circular(25.0),
                 ),
               ),
-              margin: EdgeInsets.only(top: 5),
+              margin: const EdgeInsets.only(top: 5),
               padding:
                   EdgeInsets.only(left: 40, right: 40, top: 22, bottom: 15),
               width: data.size.width,
@@ -339,13 +385,33 @@ class _DashbordScreenState extends State<DashbordScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                 ),
-                child: GridView.count(
-                  padding: EdgeInsets.all(30),
-                  mainAxisSpacing: 30,
-                  crossAxisSpacing: 30,
-                  crossAxisCount: 3,
-                  children: createTypeJob(),
-                ),
+                child: _isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : GridView.builder(
+                        padding: const EdgeInsets.all(30.0),
+                        itemCount: inspectionData.length,
+                        itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                          // builder: (c) => products[i],
+                          value: inspectionData[i],
+                          child: CertificateCard(
+                            inspectionData[i].certId,
+                            inspectionData[i].inspectionType,
+                            inspectionData[i].testDate,
+                            inspectionData[i].client,
+                            inspectionData[i].po,
+                            inspectionData[i].refNo,
+                            inspectionData[i].serialNo,
+                            inspectionData[i].locationOfTest,
+                          ),
+                        ),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 30,
+                          mainAxisSpacing: 30,
+                        ),
+                      ),
               ),
             ),
           ],
