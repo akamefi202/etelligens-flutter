@@ -1818,7 +1818,7 @@ class _LoadTest2State extends State<LoadTest2> {
                               padding: EdgeInsets.only(
                                   left: 15, right: 15, top: 7, bottom: 7),
                               margin: EdgeInsets.only(right: 14),
-                              child: Text("${certData[1]}",
+                              child: Text(certData[1] ?? '',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: data.size.width * 0.018,
@@ -1830,12 +1830,13 @@ class _LoadTest2State extends State<LoadTest2> {
                                   color: Colors.black),
                               padding: EdgeInsets.only(
                                   left: 15, right: 15, top: 7, bottom: 7),
-                              child: Text('Certificate No : ${certData[0]}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: data.size.width * 0.018,
-                                    fontWeight: FontWeight.bold,
-                                  )))
+                              child:
+                                  Text('Certificate No : ${certData[0] ?? ''}',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: data.size.width * 0.018,
+                                        fontWeight: FontWeight.bold,
+                                      )))
                         ],
                       )),
                   Row(
@@ -1857,7 +1858,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "${certData[3]}",
+                                      certData[3] ?? '',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,
@@ -1876,7 +1877,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "${certData[5]}",
+                                      certData[5] ?? '',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,
@@ -1895,7 +1896,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "${certData[7]}",
+                                      certData[7] ?? '',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,
@@ -1920,7 +1921,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "${certData[4]}",
+                                      certData[4] ?? '',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,
@@ -1939,7 +1940,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "${certData[6]}",
+                                      certData[6] ?? '',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,
@@ -1958,7 +1959,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "${certData[0]}",
+                                      certData[0] ?? '',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,
