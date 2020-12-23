@@ -79,7 +79,7 @@ class Auth with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       print("Error: " + error.toString());
-      throw error;
+      // throw error;
     }
   }
 

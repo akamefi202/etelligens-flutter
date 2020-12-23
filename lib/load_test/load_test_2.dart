@@ -4,6 +4,9 @@ import 'dart:async';
 
 class LoadTest2 extends StatefulWidget {
   LoadTest2({Key key}) : super(key: key);
+
+  static const routeName = '/load-test';
+
   @override
   _LoadTest2State createState() => _LoadTest2State();
 }
@@ -97,6 +100,9 @@ class _LoadTest2State extends State<LoadTest2> {
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
+    final certData =
+        ModalRoute.of(context).settings.arguments as List; // is the id!
+    print('Load TEst => \n $certData');
 
     Widget itemParticularEditWidget = Container(
         child: Column(
@@ -1812,7 +1818,7 @@ class _LoadTest2State extends State<LoadTest2> {
                               padding: EdgeInsets.only(
                                   left: 15, right: 15, top: 7, bottom: 7),
                               margin: EdgeInsets.only(right: 14),
-                              child: Text('Load Test Inspection',
+                              child: Text("${certData[1]}",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: data.size.width * 0.018,
@@ -1824,13 +1830,12 @@ class _LoadTest2State extends State<LoadTest2> {
                                   color: Colors.black),
                               padding: EdgeInsets.only(
                                   left: 15, right: 15, top: 7, bottom: 7),
-                              child:
-                                  Text('Certificate No : CITKSB-QF/20-MPI0513',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: data.size.width * 0.018,
-                                        fontWeight: FontWeight.bold,
-                                      )))
+                              child: Text('Certificate No : ${certData[0]}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: data.size.width * 0.018,
+                                    fontWeight: FontWeight.bold,
+                                  )))
                         ],
                       )),
                   Row(
@@ -1852,7 +1857,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "Geowell Sdn Bhd",
+                                      "${certData[3]}",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,
@@ -1871,7 +1876,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "00001",
+                                      "${certData[5]}",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,
@@ -1890,7 +1895,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "Careion Yard",
+                                      "${certData[7]}",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,
@@ -1915,7 +1920,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "182619",
+                                      "${certData[4]}",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,
@@ -1934,7 +1939,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "SPSB 08",
+                                      "${certData[6]}",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,
@@ -1953,7 +1958,7 @@ class _LoadTest2State extends State<LoadTest2> {
                                           fontSize: data.size.width * 0.024),
                                     ),
                                     Text(
-                                      "CITKSB-QF/20-MPI0513",
+                                      "${certData[0]}",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: data.size.width * 0.024,

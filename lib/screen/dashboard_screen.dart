@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:safera/provider/auth.dart';
 import 'package:safera/provider/dashboard.dart';
 import 'package:safera/widget/certificateCard.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DashbordScreen extends StatefulWidget {
   DashbordScreen({Key key}) : super(key: key);
@@ -62,7 +61,9 @@ class _DashbordScreenState extends State<DashbordScreen> {
   void initState() {
     // Provider.of<Products>(context).fetchAndSetProducts(); // WON'T WORK!
     // Future.delayed(Duration.zero).then((_) {
-    //   Provider.of<Products>(context).fetchAndSetProducts();
+    //   final String token = Provider.of<Auth>(context, listen: false).token;
+    //   final String email = Provider.of<Auth>(context, listen: false).email;
+    //   Provider.of<Certificates>(context).fetchAndSetProducts(email, token);
     // });
     super.initState();
   }
@@ -73,11 +74,9 @@ class _DashbordScreenState extends State<DashbordScreen> {
       setState(() {
         _isLoading = true;
       });
-
       final String token = Provider.of<Auth>(context, listen: false).token;
       final String email = Provider.of<Auth>(context, listen: false).email;
 
-      // print('emial for dAH => $email, $token');
       Provider.of<Certificates>(context)
           .fetchAndSetProducts(email, token)
           .then((_) {
