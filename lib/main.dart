@@ -50,7 +50,7 @@ var routes = <String, WidgetBuilder>{
   "/visual_thread/visual_thread_2": (BuildContext context) => VisualThread2(),
   "/visual_thread_drill/visual_thread_drill_2": (BuildContext context) =>
       VisualThreadDrill2(),
-  "/load_test/load_test_2": (BuildContext context) => LoadTest2(),
+  LoadTest2.routeName: (BuildContext context) => LoadTest2(),
   InspectionDetailScreen.routeName: (BuildContext context) =>
       InspectionDetailScreen()
   // '/product/deduct': (BuildContext context) => MaterialScanner(

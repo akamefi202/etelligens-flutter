@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:safera/screen/inspector_details_screen.dart';
+import 'package:safera/load_test/load_test_2.dart';
 
 class CertificateCard extends StatelessWidget {
   final String certId;
@@ -63,9 +63,18 @@ class CertificateCard extends StatelessWidget {
     return Container(
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).pushReplacementNamed(
-            InspectionDetailScreen.routeName,
-            arguments: certId,
+          Navigator.of(context).pushNamed(
+            LoadTest2.routeName,
+            arguments: [
+              certId,
+              inspectionType,
+              testDate,
+              client,
+              po,
+              refNo,
+              serialNo,
+              locationOfTest
+            ],
           );
         },
         child: Container(

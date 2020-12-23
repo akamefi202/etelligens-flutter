@@ -66,9 +66,9 @@ class Certificates with ChangeNotifier {
   //   return _items.where((prodItem) => prodItem.isFavorite).toList();
   // }
 
-  // Certificate findById(String id) {
-  //   return _items.firstWhere((prod) => prod.id == id);
-  // }
+  Certificate findById(String id) {
+    return _items.firstWhere((cret) => cret.certId == id);
+  }
 
   // void showFavoritesOnly() {
   //   _showFavoritesOnly = true;
